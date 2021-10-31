@@ -53,7 +53,7 @@ namespace PointOfSale.Results
             Error = new ResultMessage(error);
         }
 
-        public bool Success => Error != default;
+        public bool Success => Error == default;
 
         public ResultMessage Error { get; }
 
