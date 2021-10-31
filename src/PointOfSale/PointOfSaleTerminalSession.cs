@@ -78,9 +78,9 @@ namespace PointOfSale
                 decimal total;
                 if (Item.HasDiscount)
                 {
-                    var forDiscount = Count / Item.Discount.Count;
+                    var discountVolumesCount = Count / Item.Discount.Count;
 
-                    total = forDiscount * Item.Discount.Price + (Count - forDiscount) * Item.Price;
+                    total = discountVolumesCount * Item.Discount.Price + (Count - discountVolumesCount * Item.Discount.Count) * Item.Price;
                 }
                 else
                 {
