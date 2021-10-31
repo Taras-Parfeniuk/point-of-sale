@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfSale.Results", "src\PointOfSale.Results\PointOfSale.Results.csproj", "{3F533C59-5297-4E0C-87F1-E8E0CCA9C95E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSale.Results", "src\PointOfSale.Results\PointOfSale.Results.csproj", "{3F533C59-5297-4E0C-87F1-E8E0CCA9C95E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfSale", "src\PointOfSale\PointOfSale.csproj", "{6955CBA3-6F95-489A-952B-2D81895B0B24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSale", "src\PointOfSale\PointOfSale.csproj", "{6955CBA3-6F95-489A-952B-2D81895B0B24}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4B755FCF-0170-402A-9A2B-141E80B69ED0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{91B7C588-D5D5-4962-ADB5-644AB64A82D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfSale.Results.Tests", "test\PointOfSale.Results.Tests\PointOfSale.Results.Tests.csproj", "{95AEF429-8CA6-4CB7-AE38-1682360E2DBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSale.Results.Tests", "test\PointOfSale.Results.Tests\PointOfSale.Results.Tests.csproj", "{95AEF429-8CA6-4CB7-AE38-1682360E2DBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfSale.Tests", "test\PointOfSale.Tests\PointOfSale.Tests.csproj", "{64DB11E3-7036-4828-9D46-D37819826EB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSale.Tests", "test\PointOfSale.Tests\PointOfSale.Tests.csproj", "{64DB11E3-7036-4828-9D46-D37819826EB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
