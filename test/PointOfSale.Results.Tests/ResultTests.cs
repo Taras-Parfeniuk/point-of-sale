@@ -7,7 +7,7 @@ namespace PointOfSale.Results.Tests
     public class ResultTests
     {
         [Test]
-        public void SuccessResult_ShouldApplyFunction()
+        public void Apply_ToSuccessResult_ShouldApplyFunction()
         {
             var funcApplied = false;
             var target = Result.SuccessResult();
@@ -24,7 +24,7 @@ namespace PointOfSale.Results.Tests
         }
 
         [Test]
-        public void ErrorResult_ShouldNotApplyFunction()
+        public void Apply_ToErrorResult_ShouldNotApplyFunction()
         {
             var funcApplied = false;
             var target = Result.ErrorResult(string.Empty);
@@ -40,7 +40,7 @@ namespace PointOfSale.Results.Tests
             Assert.IsFalse(funcApplied);
         }
 
-        public void ErrorResult_ShouldReturnErrorResult()
+        public void Apply_ToErrorResult_ShouldReturnErrorResult()
         {
             var target = Result.ErrorResult(string.Empty);
             Func<Result> funcToApply = () => Result.SuccessResult();
@@ -51,7 +51,7 @@ namespace PointOfSale.Results.Tests
         }
 
         [Test]
-        public void SuccessTypedResult_ShouldApplyFunctionWithResultValueAsParam()
+        public void Apply_ToSuccessTypedResult_ShouldApplyFunctionWithResultValueAsParam()
         {
             var funcApplied = false;
             var target = Result<Guid>.SuccessResult(Guid.NewGuid());
@@ -70,7 +70,7 @@ namespace PointOfSale.Results.Tests
         }
 
         [Test]
-        public void ErrorTypedResult_ShouldThrowAnExceptionOnGetValue()
+        public void Apply_ToErrorTypedResult_ShouldThrowAnExceptionOnGetValue()
         {
             var target = Result<Guid>.ErrorResult(string.Empty);
             Action funcToThrowException = () => { var result = target.Value; };

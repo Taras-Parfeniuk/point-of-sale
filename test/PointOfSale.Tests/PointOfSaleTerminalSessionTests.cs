@@ -10,6 +10,8 @@ namespace PointOfSale.Tests
     [TestFixture]
     public class PointOfSaleTerminalSessionTests
     {
+        const string NONEXISTING_PRODUCT_CODE = "X";
+
         private readonly MockRepository m_mockRepository;
         private readonly Mock<ISaleItemDataProvider> m_dataProviderMock;
         
@@ -31,14 +33,44 @@ namespace PointOfSale.Tests
                     .Returns(Result<SaleItem>.SuccessResult(item));
             }
 
+            m_dataProviderMock
+                .Setup(s => s.GetByCode(NONEXISTING_PRODUCT_CODE))
+                .Returns(Result<SaleItem>.ErrorResult("Not found."));
+
             m_dataProvider = m_dataProviderMock.Object;
+        }
+
+        [Test]
+        public void Scan_ExistingCode_ShouldReturnSuccessResult()
+        {
+            var target = new PointOfSaleTerminalSession(m_dataProvider);
+
+            var code = GetTestSaleItems().First().Code;
+
+            var result = target.Scan(code);
+
+            Assert.IsTrue(result.Success);
+        }
+
+        [Test]
+        public void Scan_NonExistingCode_ShouldReturnErrorResult()
+        {
+            var target = new PointOfSaleTerminalSession(m_dataProvider);
+
+            var code = NONEXISTING_PRODUCT_CODE;
+
+            var result = target.Scan(code);
+
+            Assert.IsFalse(result.Success);
         }
 
         [Test]
         [TestCase("ABCDABA", 13.25)]
         [TestCase("CCCCCCC", 6.00)]
         [TestCase("ABCD", 7.25)]
-        public void PointOfSaleTerminalSession_SequenceOfCodes_ShouldCalculateCorrectTotal(string inputCodes, decimal expectedTotal)
+        [TestCase("ABCD" + NONEXISTING_PRODUCT_CODE, 7.25)]
+
+        public void CalculateTotal_SequenceOfCodes_ShouldReturnCorrectTotal(string inputCodes, decimal expectedTotal)
         {
             var target = new PointOfSaleTerminalSession(m_dataProvider);
 
