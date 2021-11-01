@@ -1,4 +1,4 @@
-using PointOfSale.Results;
+using System;
 
 namespace PointOfSale
 {
@@ -18,9 +18,11 @@ namespace PointOfSale
 
         public bool HasDiscount => Discount != null;
 
-        public Result SetPrice(int count, decimal price)
+        public void SetPrice(int count, decimal price)
         {
-            if (count < 1) return Result.ErrorResult("Invalid count. Value cannot be less then 1.");
+
+            if (count < 1) throw new ArgumentException("Value cannot be less then 1.", nameof(count));
+            if (price < 0) throw new ArgumentException("Value cannot be less then 0.", nameof(price));
 
             if (count == 1)
             {
@@ -30,8 +32,6 @@ namespace PointOfSale
             {
                 Discount = new SaleItemDiscount(count, price);
             }
-
-            return Result.SuccessResult();
         }
     }
 }

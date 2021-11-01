@@ -2,7 +2,6 @@
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using PointOfSale.Results;
 using PointOfSale.Storage;
 
 namespace PointOfSale.Tests
@@ -30,38 +29,14 @@ namespace PointOfSale.Tests
             {
                 m_dataProviderMock
                     .Setup(s => s.GetByCode(item.Code))
-                    .Returns(Result<SaleItem>.SuccessResult(item));
+                    .Returns(item);
             }
 
             m_dataProviderMock
                 .Setup(s => s.GetByCode(NONEXISTING_PRODUCT_CODE))
-                .Returns(Result<SaleItem>.ErrorResult("Not found."));
+                .Returns(default(SaleItem));
 
             m_dataProvider = m_dataProviderMock.Object;
-        }
-
-        [Test]
-        public void Scan_ExistingCode_ShouldReturnSuccessResult()
-        {
-            var target = new PointOfSaleTerminalSession(m_dataProvider);
-
-            var code = GetTestSaleItems().First().Code;
-
-            var result = target.Scan(code);
-
-            Assert.IsTrue(result.Success);
-        }
-
-        [Test]
-        public void Scan_NonExistingCode_ShouldReturnErrorResult()
-        {
-            var target = new PointOfSaleTerminalSession(m_dataProvider);
-
-            var code = NONEXISTING_PRODUCT_CODE;
-
-            var result = target.Scan(code);
-
-            Assert.IsFalse(result.Success);
         }
 
         [Test]
@@ -81,10 +56,9 @@ namespace PointOfSale.Tests
                 target.Scan(code);
             }
 
-            var totalResult = target.CalculateTotal();
+            var total = target.CalculateTotal();
 
-            Assert.IsTrue(totalResult.Success);
-            Assert.AreEqual(expectedTotal, totalResult.Value);
+            Assert.AreEqual(expectedTotal, total);
         }
 
         private IEnumerable<SaleItem> GetTestSaleItems()

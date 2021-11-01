@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using PointOfSale.Results;
 using PointOfSale.Storage;
 
 namespace PointOfSale
@@ -16,35 +16,34 @@ namespace PointOfSale
             m_check = new Dictionary<string, SaleItemCheckEntry>();
         }
 
-        public Result Scan(string code)
+        public void Scan(string code)
         {
             if (m_check.TryGetValue(code, out SaleItemCheckEntry entry))
             {
                 entry.Increment();
 
-                return Result.SuccessResult();
+                return;
             }
 
-            return m_dataStore.GetByCode(code)
-                .Apply(ScanNewItem);
+            var item = m_dataStore.GetByCode(code);
+
+            if (item != default) ScanNewItem(item);
         }
  
-        private Result ScanNewItem(SaleItem item)
+        private void ScanNewItem(SaleItem item)
         {
-            if (item == default || item.Code == default) return Result.ErrorResult("Unable to scan item. Value cannot be null.");
-
-            if (m_check.TryAdd(item.Code, new SaleItemCheckEntry(item, 1))) return Result.SuccessResult();
-
-            return Result.ErrorResult("Unable to scan item.");
+            if (item == default) throw new ArgumentNullException(nameof(item));
+            if (item.Code == default) throw new ArgumentException("Invalid item code. Value cannot be null.");
+            
+            m_check.Add(item.Code, new SaleItemCheckEntry(item, 1));
         }
 
-        public Result<decimal> CalculateTotal()
+        public decimal CalculateTotal()
         {
             return m_check.Aggregate
             (
-                Result<decimal>.SuccessResult(0), 
-                (total, entry) => entry.Value.CalculatePrice()
-                    .Apply(price => Result<decimal>.SuccessResult(total.Value + price))
+                new decimal(0), 
+                (total, entry) => total + entry.Value.CalculatePrice()
             );
         }
 
@@ -52,6 +51,8 @@ namespace PointOfSale
         {
             public SaleItemCheckEntry(SaleItem item, int count)
             {
+                if (count < 0) throw new ArgumentException("Count cannot be less then 0.", nameof(count));
+
                 Item = item;
                 Count = count;
             }
@@ -64,16 +65,9 @@ namespace PointOfSale
                 Count++;
             }
 
-            public void Decrement()
+            public decimal CalculatePrice()
             {
-                if (Count < 0) Count--;
-            }
-
-            public Result<decimal> CalculatePrice()
-            {
-                if (Count < 0) return Result<decimal>.ErrorResult("Failed to calculate price. Count cannot be less then 0.");
-
-                if (Count == 0) return Result<decimal>.SuccessResult(0);
+                if (Count == 0) return 0;
 
                 decimal total;
                 if (Item.HasDiscount)
@@ -87,7 +81,7 @@ namespace PointOfSale
                     total = Count * Item.Price;
                 }
 
-                return Result<decimal>.SuccessResult(total);
+                return total;
             }
         }
     }
