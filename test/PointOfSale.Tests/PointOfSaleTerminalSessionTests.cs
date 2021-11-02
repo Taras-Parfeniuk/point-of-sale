@@ -44,7 +44,6 @@ namespace PointOfSale.Tests
         [TestCase("CCCCCCC", 6.00)]
         [TestCase("ABCD", 7.25)]
         [TestCase("ABCD" + NONEXISTING_PRODUCT_CODE, 7.25)]
-
         public void CalculateTotal_SequenceOfCodes_ShouldReturnCorrectTotal(string inputCodes, decimal expectedTotal)
         {
             var target = new PointOfSaleTerminalSession(m_dataProvider);
