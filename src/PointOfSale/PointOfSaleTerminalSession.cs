@@ -70,11 +70,11 @@ namespace PointOfSale
                 if (Count == 0) return 0;
 
                 decimal total;
-                if (Item.HasDiscount)
+                if (Item.HasVolumePrice)
                 {
-                    var discountVolumesCount = Count / Item.Discount.Count;
+                    var discountVolumesCount = Count / Item.VolumePrice.Count;
 
-                    total = discountVolumesCount * Item.Discount.Price + (Count - discountVolumesCount * Item.Discount.Count) * Item.Price;
+                    total = discountVolumesCount * Item.VolumePrice.Price + (Count - discountVolumesCount * Item.VolumePrice.Count) * Item.Price;
                 }
                 else
                 {

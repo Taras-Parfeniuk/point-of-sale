@@ -14,9 +14,9 @@ namespace PointOfSale.SaleItems
 
         public decimal Price { get; private set; }
 
-        public SaleItemDiscount Discount{ get; private set; }
+        public SaleItemVolumePrice VolumePrice { get; private set; }
 
-        public bool HasDiscount => Discount != null;
+        public bool HasVolumePrice => VolumePrice != null;
 
         public void SetPrice(int count, decimal price)
         {
@@ -30,7 +30,7 @@ namespace PointOfSale.SaleItems
             }
             else
             {
-                Discount = new SaleItemDiscount(count, price);
+                VolumePrice = new SaleItemVolumePrice(count, price);
             }
         }
     }

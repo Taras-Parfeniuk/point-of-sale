@@ -1,8 +1,8 @@
 namespace PointOfSale.SaleItems
 {
-    public class SaleItemDiscount
+    public class SaleItemVolumePrice
     {
-        public SaleItemDiscount(int count, decimal price)
+        public SaleItemVolumePrice(int count, decimal price)
         {
             Count = count;
             Price = price;
