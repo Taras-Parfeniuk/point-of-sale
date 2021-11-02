@@ -16,23 +16,20 @@ namespace PointOfSale.Tests
         private static readonly Guid s_emptyDiscountCardId = Guid.NewGuid();
         private static readonly Guid s_chargedDiscountCardId = Guid.NewGuid();
 
-        private readonly MockRepository m_mockRepository;
-        private readonly Mock<ISaleItemDataProvider> m_dataProviderMock;
-        private readonly Mock<IDiscountCardStorage> m_cardStorageMock;
+        private MockRepository m_mockRepository;
+        private Mock<ISaleItemDataProvider> m_dataProviderMock;
+        private Mock<IDiscountCardStorage> m_cardStorageMock;
 
         private IDiscountCardStorage m_cardStorage;
         private ISaleItemDataProvider m_dataProvider;
 
-        public PointOfSaleTerminalSessionTests()
+        [SetUp]
+        public void Setup()
         {
             m_mockRepository = new MockRepository(MockBehavior.Strict);
             m_dataProviderMock = m_mockRepository.Create<ISaleItemDataProvider>();
             m_cardStorageMock = m_mockRepository.Create<IDiscountCardStorage>();
-        }
 
-        [SetUp]
-        public void Setup()
-        {
             foreach (var item in GetTestSaleItems())
             {
                 m_dataProviderMock
