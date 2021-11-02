@@ -1,4 +1,4 @@
-namespace PointOfSale.Storage
+namespace PointOfSale.SaleItems
 {
     public interface ISaleItemDataProvider
     {

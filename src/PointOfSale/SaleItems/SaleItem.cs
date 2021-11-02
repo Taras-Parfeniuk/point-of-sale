@@ -1,6 +1,6 @@
 using System;
 
-namespace PointOfSale
+namespace PointOfSale.SaleItems
 {
     public class SaleItem
     {
@@ -14,7 +14,7 @@ namespace PointOfSale
 
         public decimal Price { get; private set; }
 
-        public SaleItemDiscount Discount { get; private set; }
+        public SaleItemDiscount Discount{ get; private set; }
 
         public bool HasDiscount => Discount != null;
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PointOfSale.Storage;
+using PointOfSale.SaleItems;
 
 namespace PointOfSale
 {

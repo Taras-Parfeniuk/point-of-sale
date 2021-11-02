@@ -2,7 +2,7 @@
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using PointOfSale.Storage;
+using PointOfSale.SaleItems;
 
 namespace PointOfSale.Tests
 {

@@ -1,4 +1,4 @@
-namespace PointOfSale
+namespace PointOfSale.SaleItems
 {
     public class SaleItemDiscount
     {
